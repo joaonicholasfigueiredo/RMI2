@@ -13,43 +13,23 @@ import persistencia.IBuscador;
 
 public class ProcessoB {
 
-	public ProcessoB() throws Exception {
-//		semRmi();
-		comRMI();
-	}
+    public ProcessoB() throws Exception {
+        comRMI();
+        Registry rmiRegistry = LocateRegistry.getRegistry("127.0.0.1",
+                1234);
+        System.out.println("Fazendo chamada.");
+        IBuscador iuc = (IBuscador) rmiRegistry.lookup("A2");
+    }
 
-	private void comRMI() throws Exception {
-		Registry reg = LocateRegistry.createRegistry(1234);
-		IBuscador controller = new Buscador();
-		
-		reg.rebind("crt", controller);
-		System.out.println("Objeto cadastrado.");
-	}
+    private void comRMI() throws Exception {
+        Registry reg = LocateRegistry.createRegistry(1234);
+        IBuscador controller = new Buscador();
 
-	private void semRmi() throws Exception {
-		ServerSocket ss = new ServerSocket(5678);
+        reg.rebind("A1", controller);
+        System.out.println("Objeto cadastrado.");
+    }
 
-		Socket accept = ss.accept();
-
-		Scanner scan = new Scanner(accept.getInputStream());
-		String comando = scan.nextLine();
-		String[] partes = comando.split(" ");
-		// Exec UsuarioController update nome joao pedro
-		if(partes[0].equals("Exec")) {
-			if(partes[1].equals("UsuarioController")) {
-				Buscador uc = new Buscador();
-				if(partes[2].equals("update")) {
-					uc.update(partes[3], partes[4], partes[5]);
-				}
-				if(partes[2].equals("delete")) {
-					uc.delete(partes[3]);
-				}
-			}
-		}
-
-	}
-
-	public static void main(String[] args) throws Exception {
-		new ProcessoB();
-	}
+    public static void main(String[] args) throws Exception {
+        new ProcessoB();
+    }
 }
