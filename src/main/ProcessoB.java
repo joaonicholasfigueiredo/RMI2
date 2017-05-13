@@ -1,4 +1,4 @@
-package persistencia;
+package main;
 
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
@@ -8,6 +8,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
+import persistencia.Buscador;
+import persistencia.IBuscador;
 
 public class ProcessoB {
 
