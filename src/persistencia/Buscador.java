@@ -23,11 +23,13 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
     @Override
     public File buscar(String nomeDoDado) {
         File arquivo = encontrar(nomeDoDado);
-        if(arquivo == null)
-            for (Buscador b: lista) {
+        if (arquivo == null) {
+            for (Buscador b : lista) {
                 arquivo = b.buscar(nomeDoDado);
-                if (arquivo != null) return arquivo;
+                if (arquivo != null) 
+                    return arquivo;
             }
+        }
         return arquivo;
     }
 
@@ -39,11 +41,14 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
             while ((linha = br.readLine()) != null) {
                 String[] dados;
                 dados = linha.split(";");
-                
-
+                for (int i = 0; i < dados.length; i++) {
+                    
+                    
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

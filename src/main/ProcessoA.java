@@ -11,28 +11,20 @@ import persistencia.IBuscador;
 
 public class ProcessoA {
 
-	public ProcessoA() throws Exception {
-//		executaSemRMI();
-		executaComRMI();
-	}
-	
-	private void executaComRMI() throws Exception {
-		Registry rmiRegistry = LocateRegistry.getRegistry("127.0.0.1",
-				1234);
-		System.out.println("Fazendo chamada.");
-		IBuscador iuc = (IBuscador) 
-				rmiRegistry.lookup("crt");
-		
-		iuc.update("nome", "Pedro", "Joao");
-	}
+    public ProcessoA() throws Exception {
+        executaComRMI();
+    }
 
-	private void executaSemRMI() throws UnknownHostException, IOException {
-		Socket s = new Socket("127.0.0.1", 5678);
-		s.getOutputStream().write(("Exec UsuarioController update nome "
-				+ "joao pedro").getBytes());
-	}
+    private void executaComRMI() throws Exception {
+        Registry rmiRegistry = LocateRegistry.getRegistry("127.0.0.1",
+                1234);
+        System.out.println("Fazendo chamada.");
+        IBuscador iuc = (IBuscador) rmiRegistry.lookup("A1");
 
-	public static void main(String[] args) throws Exception {
-		new ProcessoA();
-	}
+        iuc.buscar("dia");
+    }
+
+    public static void main(String[] args) throws Exception {
+        new ProcessoA();
+    }
 }
