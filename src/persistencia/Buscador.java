@@ -3,16 +3,22 @@ package persistencia;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Buscador extends UnicastRemoteObject implements IBuscador {
     
-    List<Buscador> lista;
+    List<IBuscador> lista = new ArrayList<>();
+    String[] listaDIR = {
+        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A1.txt",
+        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A2.txt",
+        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A3.txt",
+        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A4.txt",
+        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A5.txt"
+    };
     final String PATH = "C:\\Users\\marco\\Documents";
 
     public Buscador() throws RemoteException {
@@ -21,10 +27,10 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
     }
 
     @Override
-    public File buscar(String nomeDoDado) {
+    public File buscar(String nomeDoDado)  throws RemoteException{
         File arquivo = encontrar(nomeDoDado);
         if (arquivo == null) {
-            for (Buscador b : lista) {
+            for (IBuscador b : lista) {
                 arquivo = b.buscar(nomeDoDado);
                 if (arquivo != null) 
                     return arquivo;
@@ -35,15 +41,19 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
 
     private File encontrar(String nomeDoDado) {
         try {
-            FileReader fr = new FileReader(PATH);
-            BufferedReader br = new BufferedReader(fr);
-            String linha = "";
-            while ((linha = br.readLine()) != null) {
-                String[] dados;
-                dados = linha.split(";");
-                for (int i = 0; i < dados.length; i++) {
-                    
-                    
+            File folder = new File(PATH);
+            File files[] = folder.listFiles();
+            for (File f: files) {
+                FileReader fr = new FileReader(f.getAbsolutePath());
+                BufferedReader br = new BufferedReader(fr);
+                String linha = "";
+                while ((linha = br.readLine()) != null) {
+                    String[] dados;
+                    dados = linha.split(";");
+                    for (int j = 0; j < dados.length; j++) {
+                        if (dados[j].equalsIgnoreCase(nomeDoDado))
+                            return new File(f.getAbsolutePath());
+                    }
                 }
             }
         } catch (Exception e) {
