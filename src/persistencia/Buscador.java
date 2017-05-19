@@ -12,13 +12,6 @@ import java.util.List;
 public class Buscador extends UnicastRemoteObject implements IBuscador {
     
     List<IBuscador> lista = new ArrayList<>();
-    String[] listaDIR = {
-        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A1.txt",
-        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A2.txt",
-        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A3.txt",
-        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A4.txt",
-        "C:\\Users\\Aluno\\Documents\\AtividadeRMI\\A5.txt"
-    };
     final String PATH = "C:\\Users\\marco\\Documents";
 
     public Buscador() throws RemoteException {
@@ -60,5 +53,10 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void addProximo(IBuscador iuc) {
+        this.lista.add(iuc);
     }
 }

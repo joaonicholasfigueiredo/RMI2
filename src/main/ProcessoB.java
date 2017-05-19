@@ -14,10 +14,10 @@ public class ProcessoB {
     private void comRMI() throws Exception {
         Registry reg = LocateRegistry.createRegistry(1234);
         IBuscador buscador = new Buscador();
-//        IBuscador iuc = (IBuscador) reg.lookup("A1");
-//
-//        buscador.addProximo(iuc);
-//        
+        IBuscador iuc = (IBuscador) reg.lookup("A1");
+
+        buscador.addProximo(iuc);
+        
         reg.rebind("A1", buscador);
         System.out.println("Objeto cadastrado.");
     }
