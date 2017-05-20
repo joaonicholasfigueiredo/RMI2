@@ -2,24 +2,24 @@ package main;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import persistencia.IBuscador;
+import persistencia.IPesquisa;
 
-public class ProcessoA {
+public class ExecutarUm {
 
-    public ProcessoA() throws Exception {
+    public ExecutarUm() throws Exception {
         executaComRMI();
     }
 
     private void executaComRMI() throws Exception {
         Registry rmiRegistry = LocateRegistry.getRegistry("127.0.0.1",
-                1234);
-        System.out.println("Fazendo chamada.");
-        IBuscador iuc = (IBuscador) rmiRegistry.lookup("A1");
+                5577);
+        System.out.println("Conectando");
+        IPesquisa iuc = (IPesquisa) rmiRegistry.lookup("A1");
 
-        iuc.buscar("dia");
+        iuc.buscar("data");
     }
 
     public static void main(String[] args) throws Exception {
-        new ProcessoA();
+        new ExecutarUm();
     }
 }

@@ -2,19 +2,17 @@ package main;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import persistencia.Buscador;
-import persistencia.IBuscador;
+import persistencia.Pesquisa;
+import persistencia.IPesquisa;
 
-public class ProcessoB {
+public class ExecutarDois {
 
-    public ProcessoB() throws Exception {
-        comRMI();        
-    }
+    public ExecutarDois() throws Exception {comRMI();}
 
     private void comRMI() throws Exception {
-        Registry reg = LocateRegistry.createRegistry(1234);
-        IBuscador buscador = new Buscador();
-        IBuscador iuc = (IBuscador) reg.lookup("A1");
+        Registry reg = LocateRegistry.createRegistry(5577);
+        IPesquisa buscador = new Pesquisa();
+        IPesquisa iuc = (IPesquisa) reg.lookup("A1");
 
         buscador.addProximo(iuc);
         
@@ -23,6 +21,6 @@ public class ProcessoB {
     }
 
     public static void main(String[] args) throws Exception {
-        new ProcessoB();
+        new ExecutarDois();
     }
 }

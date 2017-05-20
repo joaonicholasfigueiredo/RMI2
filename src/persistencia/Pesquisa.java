@@ -9,21 +9,20 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buscador extends UnicastRemoteObject implements IBuscador {
+public class Pesquisa extends UnicastRemoteObject implements IPesquisa {
     
-    List<IBuscador> lista = new ArrayList<>();
-    final String PATH = "C:\\Users\\marco\\Documents";
+    List<IPesquisa> lista = new ArrayList<>();
+    final String PATH = "C:\\Users\\Aluno\\Desktop\\Conteudo_Everton\\Atividade_RMI";
 
-    public Buscador() throws RemoteException {
+    public Pesquisa() throws RemoteException {
         super();
-        
     }
 
     @Override
     public File buscar(String nomeDoDado)  throws RemoteException{
-        File arquivo = encontrar(nomeDoDado);
+        File arquivo = buscar2(nomeDoDado);
         if (arquivo == null) {
-            for (IBuscador b : lista) {
+            for (IPesquisa b : lista) {
                 arquivo = b.buscar(nomeDoDado);
                 if (arquivo != null) 
                     return arquivo;
@@ -32,7 +31,7 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
         return arquivo;
     }
 
-    private File encontrar(String nomeDoDado) {
+    private File buscar2(String nomeDoDado) {
         try {
             File folder = new File(PATH);
             File files[] = folder.listFiles();
@@ -56,7 +55,7 @@ public class Buscador extends UnicastRemoteObject implements IBuscador {
     }
 
     @Override
-    public void addProximo(IBuscador iuc) {
+    public void addProximo(IPesquisa iuc) {
         this.lista.add(iuc);
     }
 }
